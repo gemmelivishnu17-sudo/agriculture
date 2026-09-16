@@ -1,0 +1,685 @@
+/* =========================================
+   PREMIUM AGRICULTURE TYPOGRAPHY
+========================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
+
+:root {
+    --green-dark: #10291d;
+    --green: #2f6b3f;
+    --green-light: #6f9f55;
+    --cream: #f4f1e8;
+    --white: #ffffff;
+    --text: #27352c;
+    --muted: #718077;
+    --border: rgba(255,255,255,0.25);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "DM Sans", sans-serif;
+    color: var(--text);
+    background: var(--cream);
+    line-height: 1.7;
+}
+
+h1,
+h2,
+h3 {
+    line-height: 1.1;
+    letter-spacing: -1px;
+}
+
+h1,
+h2 {
+    font-family: "Playfair Display", serif;
+}
+
+
+/* =========================================
+   EYEBROW
+========================================= */
+
+.eyebrow,
+.section-tag {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.eyebrow {
+    color: #e5edcf;
+}
+
+.section-tag {
+    color: var(--green);
+}
+
+
+/* =========================================
+   MAIN HERO
+========================================= */
+
+.hero {
+    min-height: 92vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+
+    background:
+        url("https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=2200&q=90")
+        center/cover no-repeat;
+}
+
+.hero-overlay,
+.page-hero .hero-overlay {
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(7, 25, 15, .85),
+            rgba(7, 25, 15, .45),
+            rgba(7, 25, 15, .15)
+        );
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 850px;
+    padding: 100px 7%;
+    color: white;
+}
+
+.hero h1 {
+    font-size: clamp(60px, 8vw, 110px);
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.hero h1 span {
+    display: block;
+    color: #d9e7bd;
+    font-style: italic;
+}
+
+.hero p {
+    max-width: 650px;
+    font-size: 18px;
+    color: rgba(255,255,255,.85);
+    margin-bottom: 35px;
+}
+
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+.hero-buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 15px 28px;
+
+    border-radius: 50px;
+
+    text-decoration: none;
+    font-weight: 700;
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease,
+        background .3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-4px);
+}
+
+.btn-primary {
+    color: white;
+    background: var(--green);
+    box-shadow: 0 12px 30px rgba(25, 70, 39, .25);
+}
+
+.btn-primary:hover {
+    box-shadow: 0 18px 40px rgba(25, 70, 39, .35);
+}
+
+.btn-outline {
+    color: white;
+    border: 1px solid rgba(255,255,255,.6);
+    background: rgba(255,255,255,.08);
+    backdrop-filter: blur(10px);
+}
+
+.btn-outline:hover {
+    background: rgba(255,255,255,.18);
+}
+
+
+/* =========================================
+   SCROLL INDICATOR
+========================================= */
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 7%;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    color: rgba(255,255,255,.7);
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.scroll-indicator span {
+    width: 35px;
+    height: 1px;
+    background: white;
+}
+
+
+/* =========================================
+   INNER PAGE HERO
+========================================= */
+
+.page-hero {
+    min-height: 65vh;
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    background-size: cover;
+    background-position: center;
+}
+
+.about-hero {
+    background-image:
+        url("https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=2200&q=90");
+}
+
+.crops-hero {
+    background-image:
+        url("https://images.unsplash.com/photo-1499529112087-3cb3b73cec95?auto=format&fit=crop&w=2200&q=90");
+}
+
+.technology-hero {
+    background-image:
+        url("https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=2200&q=90");
+}
+
+.page-hero-content {
+    position: relative;
+    z-index: 2;
+
+    max-width: 1000px;
+    padding: 100px 7%;
+
+    color: white;
+}
+
+.page-hero h1 {
+    font-size: clamp(50px, 7vw, 90px);
+    margin-bottom: 25px;
+}
+
+.page-hero h1 span {
+    display: block;
+    color: #dce9c7;
+    font-style: italic;
+}
+
+.page-hero p {
+    max-width: 650px;
+    font-size: 18px;
+    color: rgba(255,255,255,.85);
+}
+
+
+/* =========================================
+   SECTION HEADINGS
+========================================= */
+
+.content-section,
+.intro-section {
+    padding: 120px 7%;
+}
+
+.section-heading {
+    max-width: 850px;
+    margin-bottom: 60px;
+}
+
+.section-heading.center {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.section-heading h2 {
+    font-size: clamp(42px, 5vw, 72px);
+    margin-bottom: 25px;
+    color: var(--green-dark);
+}
+
+.section-heading h2 span {
+    display: block;
+    color: var(--green);
+    font-style: italic;
+}
+
+.section-heading p {
+    max-width: 680px;
+    font-size: 17px;
+    color: var(--muted);
+}
+
+
+/* =========================================
+   GLASS CROP CARDS
+========================================= */
+
+.crop-grid,
+.technology-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.crop-card,
+.tech-card {
+    position: relative;
+
+    padding: 40px;
+
+    border-radius: 25px;
+
+    background: rgba(255,255,255,.55);
+    border: 1px solid rgba(255,255,255,.8);
+
+    backdrop-filter: blur(18px);
+
+    box-shadow: 0 20px 50px rgba(20,50,30,.08);
+
+    transition:
+        transform .35s ease,
+        box-shadow .35s ease;
+}
+
+.crop-card:hover,
+.tech-card:hover {
+    transform: translateY(-10px);
+
+    box-shadow:
+        0 30px 70px rgba(20,50,30,.16);
+}
+
+.crop-icon,
+.tech-icon {
+    font-size: 45px;
+    margin-bottom: 25px;
+}
+
+.crop-card h3,
+.tech-card h3 {
+    font-size: 26px;
+    margin-bottom: 15px;
+    color: var(--green-dark);
+}
+
+.crop-card p,
+.tech-card p {
+    color: var(--muted);
+    margin-bottom: 20px;
+}
+
+.crop-card a {
+    color: var(--green);
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.tech-number {
+    position: absolute;
+    top: 25px;
+    right: 30px;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    color: rgba(47,107,63,.4);
+}
+
+
+/* =========================================
+   SUSTAINABILITY SECTION
+========================================= */
+
+.sustainability-section {
+    min-height: 650px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 100px 7%;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(10,35,20,.88),
+            rgba(10,35,20,.55)
+        ),
+        url("https://images.unsplash.com/photo-1523742810132-5c39e6d4b9c6?auto=format&fit=crop&w=2200&q=90")
+        center/cover;
+}
+
+.sustainability-content {
+    max-width: 750px;
+    color: white;
+}
+
+.sustainability-content h2 {
+    font-size: clamp(45px, 6vw, 80px);
+    margin-bottom: 25px;
+}
+
+.sustainability-content h2 span {
+    display: block;
+    color: #dce9c7;
+    font-style: italic;
+}
+
+.sustainability-content p {
+    font-size: 18px;
+    color: rgba(255,255,255,.8);
+    margin-bottom: 35px;
+}
+
+
+/* =========================================
+   CONTACT HERO
+========================================= */
+
+.contact-hero {
+    min-height: 60vh;
+
+    display: flex;
+    align-items: center;
+
+    padding: 100px 7%;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(8,32,18,.9),
+            rgba(8,32,18,.45)
+        ),
+        url("https://images.unsplash.com/photo-1558904541-efa843a96f01?auto=format&fit=crop&w=2200&q=90")
+        center/cover;
+}
+
+.contact-hero-content {
+    max-width: 950px;
+    color: white;
+}
+
+.contact-hero h1 {
+    font-size: clamp(50px, 7vw, 90px);
+}
+
+.contact-hero h1 span {
+    display: block;
+    color: #dce9c7;
+    font-style: italic;
+}
+
+.contact-hero p {
+    max-width: 650px;
+    margin-top: 25px;
+    font-size: 18px;
+}
+
+
+/* =========================================
+   CONTACT SECTION
+========================================= */
+
+.contact-section {
+    padding: 120px 7%;
+}
+
+.contact-wrapper {
+    max-width: 1250px;
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    gap: 70px;
+
+    align-items: center;
+}
+
+.contact-info h2 {
+    font-size: clamp(42px, 5vw, 65px);
+    color: var(--green-dark);
+    margin-bottom: 25px;
+}
+
+.contact-info h2 span {
+    display: block;
+    color: var(--green);
+    font-style: italic;
+}
+
+.contact-info > p {
+    color: var(--muted);
+    font-size: 17px;
+    margin-bottom: 35px;
+}
+
+.contact-details {
+    display: grid;
+    gap: 20px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.contact-icon {
+    width: 55px;
+    height: 55px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 16px;
+
+    background: #e2ead8;
+
+    font-size: 23px;
+}
+
+.contact-item h4 {
+    color: var(--green-dark);
+    margin-bottom: 2px;
+}
+
+.contact-item p {
+    color: var(--muted);
+}
+
+
+/* =========================================
+   CONTACT FORM GLASS CARD
+========================================= */
+
+.contact-form-card {
+    padding: 40px;
+
+    border-radius: 30px;
+
+    background: rgba(255,255,255,.65);
+
+    border: 1px solid rgba(255,255,255,.8);
+
+    backdrop-filter: blur(20px);
+
+    box-shadow:
+        0 25px 70px rgba(20,50,30,.12);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.input-group {
+    margin-bottom: 22px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    color: var(--green-dark);
+}
+
+.input-group input,
+.input-group textarea {
+    width: 100%;
+
+    padding: 15px 18px;
+
+    border: 1px solid #dbe3d9;
+    border-radius: 14px;
+
+    outline: none;
+
+    background: rgba(255,255,255,.75);
+
+    font-family: inherit;
+
+    transition: .3s ease;
+}
+
+.input-group input:focus,
+.input-group textarea:focus {
+    border-color: var(--green);
+
+    box-shadow:
+        0 0 0 4px rgba(47,107,63,.08);
+}
+
+.contact-form-card .btn {
+    border: none;
+    cursor: pointer;
+}
+
+
+/* =========================================
+   MOBILE RESPONSIVE
+========================================= */
+
+@media (max-width: 900px) {
+
+    .hero-content,
+    .page-hero-content,
+    .contact-hero-content {
+        padding-left: 6%;
+        padding-right: 6%;
+    }
+
+    .crop-grid,
+    .technology-grid,
+    .contact-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-wrapper {
+        gap: 50px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .content-section,
+    .intro-section,
+    .contact-section {
+        padding: 80px 6%;
+    }
+
+    .hero {
+        min-height: 85vh;
+    }
+
+    .page-hero {
+        min-height: 60vh;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .hero h1 {
+        font-size: 52px;
+    }
+
+    .page-hero h1,
+    .contact-hero h1 {
+        font-size: 48px;
+    }
+
+    .section-heading h2,
+    .contact-info h2 {
+        font-size: 42px;
+    }
+
+    .hero p,
+    .page-hero p,
+    .contact-hero p {
+        font-size: 16px;
+    }
+
+    .crop-card,
+    .tech-card,
+    .contact-form-card {
+        padding: 30px 24px;
+    }
+
+    .btn {
+        width: 100%;
+    }
+}

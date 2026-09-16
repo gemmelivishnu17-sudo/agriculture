@@ -1,0 +1,51 @@
+#main{
+   
+}
+.main{
+    width: 80%;
+    padding: 10px;
+    margin:auto;
+}
+.raj1{
+    width: 100%;
+    display: flex;
+   
+}
+.div1{
+    width: 30%;
+    padding: 10px;
+
+}
+.div2{
+    width: 40%;
+    padding: 0px;
+}
+.div3{
+    width: 30%;
+   
+}
+.t1{
+color: red;
+}
+
+t2{
+    color:blue;
+}
+.div4{
+    padding:20PX;
+    display: flex;
+    list-style: none;
+    
+}
+li{
+    padding: 20px;
+   
+}
+a{
+    text-decoration: none;
+
+
+}
+.d2{
+    padding: 10px;
+}

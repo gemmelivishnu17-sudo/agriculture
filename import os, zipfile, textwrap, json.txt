@@ -1,0 +1,224 @@
+import os, zipfile, textwrap, json
+
+base = "/mnt/data/whatsapp_vegetable_delivery_30_pages"
+os.makedirs(base, exist_ok=True)
+
+pages = [
+    ("index.html", "Home", "Fresh vegetables delivered to your door through WhatsApp."),
+    ("about.html", "About Us", "Learn about our farmers, fresh produce, and customer-first service."),
+    ("history.html", "History / Legacy", "Explore the journey from traditional farms to WhatsApp ordering."),
+    ("gallery.html", "Gallery", "Browse colorful vegetables, farms, baskets, and delivery moments."),
+    ("contact.html", "Contact", "Connect with our team and place your next vegetable order."),
+]
+
+# 25 additional pages: five variations for each major section
+extra = [
+    ("home-fresh.html", "Fresh Produce", "Seasonal vegetables selected fresh from trusted farms."),
+    ("home-farmers.html", "Meet Our Farmers", "Meet the people who grow and care for your food."),
+    ("home-ordering.html", "How WhatsApp Ordering Works", "Order vegetables in a few simple WhatsApp steps."),
+    ("home-delivery.html", "Delivery Information", "Understand delivery areas, timing, and order updates."),
+    ("home-offers.html", "Weekly Offers", "Discover seasonal bundles and family vegetable packs."),
+    ("about-mission.html", "Our Mission", "Making fresh, affordable vegetables easier to access."),
+    ("about-values.html", "Our Values", "Freshness, honesty, sustainability, and care."),
+    ("about-quality.html", "Quality Promise", "Our approach to selecting, packing, and checking produce."),
+    ("about-community.html", "Community Support", "How local vegetable delivery supports nearby communities."),
+    ("about-faq.html", "Frequently Asked Questions", "Helpful answers about ordering and delivery."),
+    ("history-roots.html", "Our Roots", "From local markets and family farms to digital ordering."),
+    ("history-timeline.html", "Our Timeline", "A simple timeline of our vegetable delivery journey."),
+    ("history-traditions.html", "Farming Traditions", "Traditional knowledge behind fresh and seasonal produce."),
+    ("history-modern.html", "Modern Delivery", "How technology makes farm-to-home delivery convenient."),
+    ("history-future.html", "The Future", "Our vision for responsible and accessible food delivery."),
+    ("gallery-vegetables.html", "Vegetable Collection", "Tomatoes, carrots, greens, gourds, beans, and more."),
+    ("gallery-farms.html", "Farm Life", "Scenes from fields, nurseries, harvests, and farmers."),
+    ("gallery-baskets.html", "Fresh Baskets", "Colorful baskets prepared for families and homes."),
+    ("gallery-delivery.html", "Delivery Moments", "Packing, dispatching, and doorstep delivery snapshots."),
+    ("gallery-seasonal.html", "Seasonal Favorites", "Vegetables that shine across different seasons."),
+    ("contact-order.html", "Place an Order", "Send your vegetable list through WhatsApp."),
+    ("contact-support.html", "Customer Support", "Get help with orders, delivery, or product questions."),
+    ("contact-feedback.html", "Feedback", "Share your experience and suggestions with us."),
+    ("contact-partners.html", "Farmer Partnerships", "Learn how growers can connect with our service."),
+    ("contact-location.html", "Service Area", "Check our delivery area and contact details."),
+]
+pages.extend(extra)
+
+nav = """
+<nav class="navbar">
+  <a class="brand" href="index.html">🥬 WhatsApp Vegetables</a>
+  <button class="menu-toggle" aria-label="Toggle navigation">☰</button>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="history.html">History</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
+"""
+
+footer = """
+<footer class="footer">
+  <div><strong>🥕 WhatsApp Vegetables</strong><br>Freshness from farms to your family.</div>
+  <div>© <span id="year"></span> WhatsApp Vegetables. All rights reserved.</div>
+  <div><a href="contact.html">Contact</a> · <a href="gallery.html">Gallery</a> · <a href="index.html">Home</a></div>
+</footer>
+"""
+
+css = """
+:root{
+  --green:#3CF527;
+  --dark:#073b22;
+  --deep:#042817;
+  --light:#f4fff0;
+  --white:#ffffff;
+  --shadow:0 12px 35px rgba(4,40,23,.14);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Arial,Helvetica,sans-serif;background:var(--green);color:var(--dark);line-height:1.6}
+a{text-decoration:none;color:inherit}
+.navbar{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:16px 6%;background:rgba(255,255,255,.96);box-shadow:0 3px 15px rgba(0,0,0,.08)}
+.brand{font-size:1.2rem;font-weight:800;color:var(--deep)}
+.nav-links{display:flex;gap:18px;flex-wrap:wrap}
+.nav-links a{font-weight:700;padding:8px 10px;border-radius:8px;transition:.25s}
+.nav-links a:hover{background:var(--green);transform:translateY(-2px)}
+.menu-toggle{display:none;border:0;background:var(--green);padding:8px 12px;border-radius:8px;font-size:1.1rem}
+.hero{min-height:390px;display:grid;place-items:center;text-align:center;padding:65px 6%;background:linear-gradient(120deg,rgba(4,40,23,.85),rgba(7,59,34,.4)),url('https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1600&q=85') center/cover;color:white}
+.hero h1{font-size:clamp(2rem,5vw,4.4rem);margin-bottom:16px}
+.hero p{max-width:760px;margin:auto;font-size:1.15rem}
+.btn{display:inline-block;margin-top:24px;background:var(--green);color:var(--deep);padding:12px 20px;border-radius:30px;font-weight:800;transition:.25s}
+.btn:hover{transform:translateY(-4px);box-shadow:0 8px 18px rgba(0,0,0,.2)}
+.container{width:min(1120px,90%);margin:0 auto;padding:55px 0}
+.section-title{text-align:center;margin-bottom:30px;font-size:clamp(1.7rem,3vw,2.5rem)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px}
+.card{background:rgba(255,255,255,.95);padding:24px;border-radius:18px;box-shadow:var(--shadow);transition:.25s}
+.card:hover{transform:translateY(-7px)}
+.card img{width:100%;height:180px;object-fit:cover;border-radius:12px;margin-bottom:14px}
+.card h3{margin-bottom:8px}
+.highlight{background:var(--light);border-left:7px solid var(--dark);padding:25px;border-radius:14px;margin:25px 0}
+.timeline{display:grid;gap:18px;max-width:850px;margin:auto}
+.timeline article{background:white;padding:22px;border-radius:14px;box-shadow:var(--shadow)}
+.timeline strong{color:#128b2b}
+.gallery img{height:220px}
+.form{background:white;padding:28px;border-radius:18px;box-shadow:var(--shadow);max-width:700px;margin:auto}
+.form input,.form textarea{width:100%;padding:13px;margin:8px 0 15px;border:1px solid #c5d9c2;border-radius:8px;font:inherit}
+.form button{border:0;cursor:pointer}
+.footer{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;background:var(--deep);color:white;padding:28px 6%;font-size:.95rem}
+.footer a{color:var(--green)}
+@media(max-width:720px){
+  .menu-toggle{display:block}
+  .nav-links{display:none;position:absolute;top:66px;left:0;right:0;background:white;padding:15px 6%;flex-direction:column}
+  .nav-links.open{display:flex}
+  .hero{min-height:340px;padding:45px 6%}
+  .footer{flex-direction:column}
+}
+"""
+
+js = """
+const toggle=document.querySelector('.menu-toggle');
+const links=document.querySelector('.nav-links');
+if(toggle){toggle.addEventListener('click',()=>links.classList.toggle('open'));}
+const year=document.getElementById('year');
+if(year) year.textContent=new Date().getFullYear();
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const target=document.querySelector(a.getAttribute('href'));
+    if(target){e.preventDefault();target.scrollIntoView({behavior:'smooth'});}
+  });
+});
+"""
+
+images = [
+    "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=900&q=85",
+    "https://images.unsplash.com/photo-1566385101042-1a0aa0c1268c?auto=format&fit=crop&w=900&q=85",
+    "https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=900&q=85",
+    "https://images.unsplash.com/photo-1597362925123-77861d3fbac7?auto=format&fit=crop&w=900&q=85",
+    "https://images.unsplash.com/photo-1573246123716-6b1782bfc499?auto=format&fit=crop&w=900&q=85",
+    "https://images.unsplash.com/photo-1582515073490-39981397c445?auto=format&fit=crop&w=900&q=85",
+]
+
+def page_html(filename, title, description, idx):
+    is_contact = "contact" in filename or "order" in filename or "support" in filename or "feedback" in filename or "partners" in filename
+    is_history = "history" in filename
+    is_gallery = "gallery" in filename
+    if is_contact:
+        body = f"""
+<section class="hero"><div><h1>{title}</h1><p>{description}</p><a class="btn" href="https://wa.me/919999999999?text=Hello%20I%20want%20to%20order%20vegetables" target="_blank">Order on WhatsApp</a></div></section>
+<main class="container">
+  <div class="form">
+    <h2>Send us a message</h2>
+    <form onsubmit="event.preventDefault();alert('Thank you! Please continue on WhatsApp to confirm your request.');">
+      <label>Name</label><input required placeholder="Your name">
+      <label>Phone number</label><input required type="tel" placeholder="Your phone number">
+      <label>Vegetable list / Message</label><textarea required rows="5" placeholder="Example: 2 kg tomatoes, 1 kg carrots..."></textarea>
+      <button class="btn" type="submit">Send Request</button>
+    </form>
+  </div>
+</main>"""
+    elif is_history:
+        body = f"""
+<section class="hero"><div><h1>{title}</h1><p>{description}</p></div></section>
+<main class="container">
+  <h2 class="section-title">From Farm to Home</h2>
+  <div class="timeline">
+    <article><strong>Then</strong><h3>Traditional local markets</h3><p>Families relied on farmers, neighborhood markets, and seasonal harvests.</p></article>
+    <article><strong>Next</strong><h3>Better packing and transport</h3><p>Improved handling helped vegetables travel safely from fields to homes.</p></article>
+    <article><strong>Today</strong><h3>WhatsApp ordering</h3><p>Customers can share a shopping list, receive updates, and arrange delivery quickly.</p></article>
+    <article><strong>Tomorrow</strong><h3>Responsible growth</h3><p>We aim to support farmers, reduce waste, and make fresh food more accessible.</p></article>
+  </div>
+</main>"""
+    elif is_gallery:
+        body = f"""
+<section class="hero"><div><h1>{title}</h1><p>{description}</p></div></section>
+<main class="container">
+  <h2 class="section-title">Freshness in Every Frame</h2>
+  <div class="grid gallery">
+    {''.join(f'<article class="card"><img src="{images[(idx+i)%len(images)]}" alt="Fresh vegetables and farm produce"><h3>Fresh produce</h3><p>Carefully selected vegetables for everyday meals.</p></article>' for i in range(6))}
+  </div>
+</main>"""
+    else:
+        body = f"""
+<section class="hero"><div><h1>{title}</h1><p>{description}</p><a class="btn" href="https://wa.me/919999999999?text=Hello%20WhatsApp%20Vegetables" target="_blank">Chat on WhatsApp</a></div></section>
+<main class="container">
+  <h2 class="section-title">Good Food Starts with Fresh Choices</h2>
+  <div class="grid">
+    {''.join(f'<article class="card"><img src="{images[(idx+i)%len(images)]}" alt="Fresh vegetables"><h3>{["Farm Fresh","Trusted Quality","Easy Ordering","Fast Delivery","Healthy Choices","Local Support"][(idx+i)%6]}</h3><p>Enjoy carefully selected vegetables, friendly service, and simple ordering for your home.</p></article>' for i in range(6))}
+  </div>
+  <div class="highlight"><h2>Why choose us?</h2><p>We connect customers with fresh vegetables, clear communication, convenient WhatsApp ordering, and dependable delivery updates.</p></div>
+</main>"""
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="{description}">
+<title>{title} | WhatsApp Vegetables</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+{nav}
+{body}
+{footer}
+<script src="script.js"></script>
+</body>
+</html>"""
+
+for idx, (filename, title, description) in enumerate(pages):
+    with open(os.path.join(base, filename), "w", encoding="utf-8") as f:
+        f.write(page_html(filename, title, description, idx))
+
+with open(os.path.join(base, "style.css"), "w", encoding="utf-8") as f:
+    f.write(css)
+with open(os.path.join(base, "script.js"), "w", encoding="utf-8") as f:
+    f.write(js)
+with open(os.path.join(base, "README.txt"), "w", encoding="utf-8") as f:
+    f.write("WhatsApp Vegetable Delivery 30-page responsive website\n\nOpen index.html in a browser.\nReplace the demo WhatsApp number 919999999999 in the HTML files with your real number.\n")
+
+zip_path = "/mnt/data/whatsapp_vegetable_delivery_30_pages.zip"
+with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as z:
+    for root, dirs, files in os.walk(base):
+        for file in files:
+            full = os.path.join(root, file)
+            z.write(full, os.path.relpath(full, base))
+
+print(f"Created {len(pages)} HTML pages plus CSS, JavaScript, and README.")
+print(f"ZIP file: {zip_path}")

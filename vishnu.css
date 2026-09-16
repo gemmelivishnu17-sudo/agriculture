@@ -1,0 +1,68 @@
+#main{
+    padding: 0;
+    width: 100%;
+    margin: 0;
+    
+}
+header{
+    width: 20%;
+      background-color: rgb(172, 91, 26);
+    
+
+      }
+
+      
+section{
+    display: flex;
+    gap: 200px;
+    padding: 20px;
+
+
+
+}
+ul{
+    padding: 10px;
+    display: flex;
+    margin: auto;
+        border: 20px;
+    }
+     
+li
+{
+    padding: 10px;
+    margin: auto;
+    display: flex;
+   display: grid;
+   gap: 20px;
+   border: 20px;
+}
+
+a{
+    text-decoration: none;
+}
+section{
+    display: grid;
+    padding: 10px;
+    grid-template-columns: repeat(4,1fr) 
+gap: 10px;
+}
+.ab{
+    display: grid;
+    padding: 10px;
+grid-template-columns: repeat(2,1fr);
+border: 1PX solid  RED;
+gap: 10PX;
+text-align: center;
+background: url(https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_1280.jpg);
+
+}
+.ef{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 20px;
+    padding: 10px;
+    row-gap: 10px;
+    border:
+    border-radius: 20px;
+
+}
